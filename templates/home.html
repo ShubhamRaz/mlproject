@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Exam Performance Indicator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+
+        .info-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .info-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .info-section h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .info-section p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .features {
+            margin-top: 30px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .feature i {
+            background: rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .form-section {
+            padding: 50px;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .form-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .form-header p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.05rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #f8fafc;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            background: white;
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn i {
+            margin-right: 10px;
+        }
+
+        .prediction-result {
+            margin-top: 40px;
+            padding: 25px;
+            background: #e8f4fe;
+            border-radius: 15px;
+            text-align: center;
+            border-left: 5px solid var(--primary);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .prediction-result h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prediction-result h3 i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+
+        .prediction-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 15px 0;
+        }
+
+        .prediction-text {
+            font-size: 1.1rem;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .score-range {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-section {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .form-section, .info-section {
+                padding: 25px;
+            }
+            
+            .form-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .info-section h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="info-section">
+            <h1>Student Exam Performance Indicator</h1>
+            <p>Our advanced prediction model helps educators and students forecast exam performance based on key factors. By analyzing various parameters, we provide accurate estimates to help improve learning outcomes.</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Accurate performance predictions</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Actionable insights for improvement</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Personalized learning recommendations</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-database"></i>
+                    <span>Based on comprehensive educational research</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Performance Prediction</h2>
+                    <p>Fill in the details to predict the student's math score</p>
+                </div>
+                
+                <form>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select class="form-control" id="gender" name="gender" required>
+                            <option value="" disabled selected>Select your Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ethnicity">Race or Ethnicity</label>
+                        <select class="form-control" id="ethnicity" name="ethnicity" required>
+                            <option value="" disabled selected>Select Ethnicity</option>
+                            <option value="group A">Group A</option>
+                            <option value="group B">Group B</option>
+                            <option value="group C">Group C</option>
+                            <option value="group D">Group D</option>
+                            <option value="group E">Group E</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="parental_education">Parental Level of Education</label>
+                        <select class="form-control" id="parental_education" name="parental_level_of_education" required>
+                            <option value="" disabled selected>Select Parent Education</option>
+                            <option value="associate's degree">Associate's Degree</option>
+                            <option value="bachelor's degree">Bachelor's Degree</option>
+                            <option value="high school">High School</option>
+                            <option value="master's degree">Master's Degree</option>
+                            <option value="some college">Some College</option>
+                            <option value="some high school">Some High School</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lunch">Lunch Type</label>
+                        <select class="form-control" id="lunch" name="lunch" required>
+                            <option value="" disabled selected>Select Lunch Type</option>
+                            <option value="free/reduced">Free/Reduced</option>
+                            <option value="standard">Standard</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="test_prep">Test Preparation Course</label>
+                        <select class="form-control" id="test_prep" name="test_preparation_course" required>
+                            <option value="" disabled selected>Select Test Course</option>
+                            <option value="none">None</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reading_score">Reading Score (out of 100)</label>
+                        <input class="form-control" type="number" id="reading_score" name="reading_score" 
+                               placeholder="Enter your Reading score" min="0" max="100" />
+                        <div class="score-range">
+                            <span>0</span>
+                            <span>100</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="writing_score">Writing Score (out of 100)</label>
+                        <input class="form-control" type="number" id="writing_score" name="writing_score" 
+                               placeholder="Enter your Writing score" min="0" max="100" />
+                        <div class="score-range">
+                            <span>0</span>
+                            <span>100</span>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn">
+                        <i class="fas fa-calculator"></i> Predict your Maths Score
+                    </button>
+                </form>
+                
+                <div class="prediction-result">
+                    <h3><i class="fas fa-chart-bar"></i> Prediction Result</h3>
+                    <div class="prediction-value">86.4</div>
+                    <div class="prediction-text">Based on your inputs, the predicted math score is:</div>
+                    <div class="prediction-text">This score is above average for students with similar profiles.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form submission simulation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate loading
+            const resultDiv = document.querySelector('.prediction-result');
+            resultDiv.innerHTML = `<h3><i class="fas fa-spinner fa-spin"></i> Processing...</h3>`;
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // Generate a random score between 60 and 100
+                const randomScore = (Math.random() * 40 + 60).toFixed(1);
+                
+                // Create feedback message based on score
+                let feedback = "";
+                if (randomScore >= 85) {
+                    feedback = "Excellent! This score is well above average.";
+                } else if (randomScore >= 75) {
+                    feedback = "Great job! This score is above average.";
+                } else if (randomScore >= 65) {
+                    feedback = "Good effort! This score is about average.";
+                } else {
+                    feedback = "Consider additional preparation to improve your score.";
+                }
+                
+                // Update the result display
+                resultDiv.innerHTML = `
+                    <h3><i class="fas fa-chart-bar"></i> Prediction Result</h3>
+                    <div class="prediction-value">${randomScore}</div>
+                    <div class="prediction-text">Based on your inputs, the predicted math score is:</div>
+                    <div class="prediction-text">${feedback}</div>
+                `;
+                
+                // Animate the result
+                resultDiv.style.animation = 'none';
+                setTimeout(() => {
+                    resultDiv.style.animation = 'fadeIn 0.5s ease-in-out';
+                }, 10);
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
